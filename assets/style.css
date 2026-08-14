@@ -1,0 +1,87 @@
+/* Base styles. Full light/dark theme + responsive breakpoints land in the
+   theming module (component 14) — this covers what auth + layout need now. */
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("./Vazirmatn.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+[dir="rtl"] {
+  font-family: "Vazirmatn", Tahoma, sans-serif;
+  text-align: right;
+}
+
+[dir="ltr"] {
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.auth-page {
+  background: linear-gradient(135deg, #eef3f7 0%, #dbe7f0 100%);
+}
+
+:root {
+  --clinic-primary: #2c6e9e;
+  --clinic-accent: #4caf90;
+}
+
+/* --- App shell layout --- */
+.app-body {
+  min-height: calc(100vh - 56px);
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: #f8f9fa;
+  border-inline-end: 1px solid #dee2e6;
+  transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-link {
+  white-space: nowrap;
+}
+
+/* Mobile / tablet (<1024px): sidebar becomes an off-canvas drawer */
+@media (max-width: 1023.98px) {
+  .sidebar {
+    position: fixed;
+    inset-inline-start: 0;
+    top: 56px;
+    bottom: 0;
+    z-index: 1030;
+    transform: translateX(-100%);
+  }
+  [dir="rtl"] .sidebar {
+    transform: translateX(100%);
+  }
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+/* Desktop (>=1024px): sidebar always visible, hamburger hidden (see .d-lg-none on the button) */
+@media (min-width: 1024px) {
+  .sidebar {
+    transform: none !important;
+    position: relative;
+  }
+}
+
+/* Tablet touch targets */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .sidebar-link {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* --- Dark mode --- */
+[data-theme="dark"] {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+[data-theme="dark"] .sidebar {
+  background: #1e1e1e;
+  border-color: #333;
+}
